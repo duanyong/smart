@@ -43,24 +43,32 @@
 		<filter-name>logoutFilter</filter-name>
 		<url-pattern>/logout</url-pattern>
 	</filter-mapping>
+
 	<!-- 单点登录 -->
 	<filter>
 		<filter-name>ssoFilter</filter-name>
 		<filter-class>com.smart.sso.client.SsoFilter</filter-class>
+		<init-param>
+			<param-name>sso.app_name</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>ssoFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+
 	</filter-mapping>
-	<!-- 权限控制(选配) -->
-	<filter>
-		<filter-name>permissionFilter</filter-name>
-		<filter-class>com.smart.sso.client.PermissionFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>permissionFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+
+	<!--&lt;!&ndash; 权限控制(选配) &ndash;&gt;-->
+	<!--<filter>-->
+		<!--<filter-name>permissionFilter</filter-name>-->
+		<!--<filter-class>com.smart.sso.client.PermissionFilter</filter-class>-->
+	<!--</filter>-->
+	<!--<filter-mapping>-->
+		<!--<filter-name>permissionFilter</filter-name>-->
+		<!--<url-pattern>/*</url-pattern>-->
+	<!--</filter-mapping>-->
+
 	<!-- SpringMVC核心 -->
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>

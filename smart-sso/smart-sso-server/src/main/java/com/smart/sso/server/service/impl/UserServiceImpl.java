@@ -43,31 +43,34 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User, Integer> impleme
 		Result result = Result.createSuccessResult();
 		User user = findByAccount(account);
 		if (user == null) {
-			result.setCode(ResultCode.ERROR).setMessage("登录名不存在");
+			return result.setCode(ResultCode.ERROR).setMessage("登录名不存在");
 		}
-		else if (!user.getPassword().equals(password)) {
-			result.setCode(ResultCode.ERROR).setMessage("密码不正确");
+
+		if (!user.getPassword().equals(password)) {
+			return result.setCode(ResultCode.ERROR).setMessage("密码不正确");
 		}
-		else if (TrueFalseEnum.FALSE.getValue().equals(user.getIsEnable())) {
-			result.setCode(ResultCode.ERROR).setMessage("已被管理员禁用");
+
+		if (TrueFalseEnum.FALSE.getValue().equals(user.getIsEnable())) {
+			return result.setCode(ResultCode.ERROR).setMessage("已被管理员禁用");
 		}
-		else {
-			Set<String> set = appService.findAppCodeByUserId(TrueFalseEnum.TRUE.getValue(), user.getId());
-			if (CollectionUtils.isEmpty(set)) {
-				result.setCode(ResultCode.ERROR).setMessage("不存在可操作应用");
-			}
-			else if (!set.contains(appCode)) {
-				result.setCode(ResultCode.ERROR).setMessage("没有应用操作权限");
-			}
-			else {
-				user.setLastLoginIp(ip);
-				user.setLoginCount(user.getLoginCount() + 1);
-				user.setLastLoginTime(new Date());
-				dao.update(user);
-				result.setData(user);
-			}
+
+		Set<String> set = appService.findAppCodeByUserId(TrueFalseEnum.TRUE.getValue(), user.getId());
+		if (CollectionUtils.isEmpty(set)) {
+			return result.setCode(ResultCode.ERROR).setMessage("不存在可操作应用");
 		}
-		return result;
+
+		if (!set.contains(appCode)) {
+			return result.setCode(ResultCode.ERROR).setMessage("没有应用操作权限");
+		}
+
+
+		user.setLastLoginIp(ip);
+		user.setLoginCount(user.getLoginCount() + 1);
+		user.setLastLoginTime(new Date());
+
+		dao.update(user);
+
+		return result.setData(user);
 	}
 
 	public void enable(Boolean isEnable, List<Integer> idList) {

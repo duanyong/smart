@@ -85,7 +85,7 @@
 													<label class="block clearfix form-group">
 														<span class="block input-icon input-icon-right help-validate">
 															<input id="_account" name="account" type="text" class="form-control form-data" placeholder="登录名"
-																required="true" minlength = '4'/>
+																required="true" minlength = '4' value="adming"/>
 															<i class="ace-icon fa fa-user"></i>
 														</span>
 													</label>
@@ -93,7 +93,7 @@
 													<label class="block clearfix form-group">
 														<span class="block input-icon input-icon-right help-validate">
 															<input id="_password" name="password" type="password" class="form-control form-data" placeholder="密码"
-																required="true" minlength = '6' maxlength = '16'/>
+																required="true" minlength = '6' maxlength = '16' value="123456"/>
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
 													</label>
@@ -102,7 +102,7 @@
 													<label class="block clearfix form-group">
 														<span class="block help-validate">
 															<input id="_captcha" name="captcha" type="text" placeholder="验证码"
-																required="true"/>
+																required="true" value="12345" />
 															<img alt="" src="${_path}/captcha">
 														</span>
 													</label>

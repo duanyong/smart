@@ -1,12 +1,5 @@
 package com.smart.sso.server.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.smart.mvc.util.StringUtils;
 import com.smart.sso.rpc.AuthenticationRpcService;
 import com.smart.sso.rpc.RpcPermission;
@@ -15,6 +8,11 @@ import com.smart.sso.server.common.LoginUser;
 import com.smart.sso.server.common.TokenManager;
 import com.smart.sso.server.service.PermissionService;
 import com.smart.sso.server.service.UserService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("authenticationRpcService")
 public class AuthenticationRpcServiceImpl implements AuthenticationRpcService {
@@ -37,22 +35,21 @@ public class AuthenticationRpcServiceImpl implements AuthenticationRpcService {
 		if (user != null) {
 			return new RpcUser(user.getAccount());
 		}
+
 		return null;
 	}
 	
 	@Override
-	public List<RpcPermission> findPermissionList(String token, String appCode) {
+	public List<RpcPermission> findPermissionList(String appCode, String token) {
 		if (StringUtils.isBlank(token)) {
 			return permissionService.findListById(appCode, null);
 		}
-		else {
-			LoginUser user = tokenManager.validate(token);
-			if (user != null) {
-				return permissionService.findListById(appCode, user.getUserId());
-			}
-			else {
-				return new ArrayList<RpcPermission>(0);
-			}
+
+		LoginUser user = tokenManager.validate(token);
+		if (user != null) {
+			return permissionService.findListById(appCode, user.getUserId());
 		}
+
+		return new ArrayList<RpcPermission>(0);
 	}
 }

@@ -35,14 +35,16 @@
 	</filter-mapping>
 	 -->
 	<!-- 验证码 -->
-	<filter>
-		<filter-name>captchaFilter</filter-name>
-		<filter-class>com.smart.mvc.captcha.CaptchaFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>captchaFilter</filter-name>
-		<url-pattern>/captcha</url-pattern>
-	</filter-mapping>
+	<!--<filter>-->
+		<!--<filter-name>captchaFilter</filter-name>-->
+		<!--<filter-class>com.smart.mvc.captcha.CaptchaFilter</filter-class>-->
+	<!--</filter>-->
+	<!--<filter-mapping>-->
+		<!--<filter-name>captchaFilter</filter-name>-->
+		<!--<url-pattern>/captcha</url-pattern>-->
+	<!--</filter-mapping>-->
+
+
 	<!-- 单点登录 -->
 	<filter>
 		<filter-name>ssoFilter</filter-name>
@@ -56,6 +58,8 @@
 		<filter-name>ssoFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+
 	<!-- 权限控制(选配) -->
 	<filter>
 		<filter-name>permissionFilter</filter-name>
@@ -65,10 +69,14 @@
 			<param-value>/login,/logout,/rpc</param-value>
 		</init-param>
 	</filter>
+
 	<filter-mapping>
 		<filter-name>permissionFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+
+
 	<!-- SpringMVC核心 -->
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
@@ -99,7 +107,7 @@
 	</servlet-mapping>
 	<!-- 应用初始化参数 -->
 	<servlet>
-		<servlet-name>configInitServlet</servlet-name>
+		<servlet-name>configInitServlet1</servlet-name>
 		<servlet-class>com.smart.mvc.servlet.ConfigInitServlet</servlet-class>
 		<load-on-startup>2</load-on-startup>
 		<async-supported>true</async-supported>

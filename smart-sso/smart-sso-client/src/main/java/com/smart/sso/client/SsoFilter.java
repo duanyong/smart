@@ -1,14 +1,14 @@
 package com.smart.sso.client;
 
-import java.io.IOException;
+import com.smart.mvc.exception.ServiceException;
+import com.smart.mvc.util.StringUtils;
+import com.smart.sso.rpc.RpcUser;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.smart.mvc.exception.ServiceException;
-import com.smart.sso.rpc.RpcUser;
+import java.io.IOException;
 
 /**
  * 单点登录及Token验证Filter
@@ -24,18 +24,34 @@ public class SsoFilter extends ClientFilter {
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		String token = getLocalToken(request);
-		if (token == null) {
-			if (getParameterToken(request) != null) {
-				// 再跳转一次当前URL，以便去掉URL中token参数
-				response.sendRedirect(request.getRequestURL().toString());
-			}
-			else
-				redirectLogin(request, response);
-		}
-		else if (isLogined(token))
+
+		if (isLogined(token)) {
 			chain.doFilter(request, response);
-		else
+
+		} else if (getParameterToken(request) != null) {
+			response.sendRedirect(request.getRequestURL().toString());
+
+		} else {
 			redirectLogin(request, response);
+		}
+
+//		if (token == null) {
+//			if (getParameterToken(request) != null) {
+//				// 再跳转一次当前URL，以便去掉URL中token参数
+//				response.sendRedirect(request.getRequestURL().toString());
+//			} else {
+//                redirectLogin(request, response);
+//            }
+//
+//            return;
+//        }
+//
+//
+//		if (isLogined(token)) {
+//            chain.doFilter(request, response);
+//        } else {
+//            redirectLogin(request, response);
+//        }
 	}
 
 	/**
@@ -46,6 +62,7 @@ public class SsoFilter extends ClientFilter {
 	 */
 	private String getLocalToken(HttpServletRequest request) {
 		SessionUser sessionUser = SessionUtils.getSessionUser(request);
+
 		return sessionUser == null ? null : sessionUser.getToken();
 	}
 
@@ -60,8 +77,10 @@ public class SsoFilter extends ClientFilter {
 		String token = request.getParameter(SSO_TOKEN_NAME);
 		if (token != null) {
 			RpcUser rpcUser = authenticationRpcService.findAuthInfo(token);
+
 			if (rpcUser != null) {
 				invokeAuthenticationInfoInSession(request, token, rpcUser.getAccount());
+
 				return token;
 			}
 		}
@@ -91,9 +110,9 @@ public class SsoFilter extends ClientFilter {
 	/**
 	 * 保存认证信息到Session
 	 * 
+	 * @param request
 	 * @param token
 	 * @param account
-	 * @param profile
 	 */
 	private void invokeAuthenticationInfoInSession(HttpServletRequest request, String token, String account) {
 		SessionUtils.setSessionUser(request, new SessionUser(token, account));
@@ -106,6 +125,10 @@ public class SsoFilter extends ClientFilter {
 	 * @return
 	 */
 	private boolean isLogined(String token) {
+		if (StringUtils.isBlank(token)) {
+			return false;
+		}
+
 		return authenticationRpcService.validate(token);
 	}
 
@@ -117,6 +140,7 @@ public class SsoFilter extends ClientFilter {
 	 */
 	private boolean isAjaxRequest(HttpServletRequest request) {
 		String requestedWith = request.getHeader("X-Requested-With");
+
 		return requestedWith != null ? "XMLHttpRequest".equals(requestedWith) : false;
 	}
 }
