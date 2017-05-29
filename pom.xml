@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.smart</groupId>
 	<artifactId>smart</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
 	
@@ -450,9 +450,9 @@
 	<!-- Jar镜像 -->
 	<repositories>
 		<repository>
-			<id>smart</id>
+			<id>duanyong</id>
 			<name>smart</name>
-			<url>http://www.gechuanyi.com:99/repository/maven2/</url>
+			<url>https://raw.githubusercontent.com/duanyong/smart/tree/snapshot/</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -460,27 +460,27 @@
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
-			<id>smart</id>
+			<id>duanyong</id>
 			<name>smart</name>
-			<url>http://www.gechuanyi.com:99/repository/maven2/</url>
+			<url>https://raw.githubusercontent.com/duanyong/smart/tree/snapshot/</url>
 			<layout>default</layout>
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</snapshots>
 			<releases>
-				<updatePolicy>never</updatePolicy>
+				<updatePolicy>daily</updatePolicy>
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
 	
 	<issueManagement>
 		<system>github</system>
-		<url>https://github.com/a466350665/smart/issues</url>
+		<url>https://github.com/duanyong/smart/issues</url>
 	</issueManagement>
 	
 	<scm>
-		<url>https://github.com/a466350665/smart</url>
-		<connection>https://github.com/a466350665/smart.git</connection>
+		<url>https://github.com/duanyong/smart</url>
+		<connection>https://github.com/duanyong/smart.git</connection>
 	</scm>
 	
 	<developers>
