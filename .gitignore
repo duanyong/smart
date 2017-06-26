@@ -8,5 +8,8 @@ target
 .idea
 *.iml
 
+### FOR MAC
+.DS_Store
+
 catalina.home_IS_UNDEFINED
 *.war
