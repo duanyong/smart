@@ -49,12 +49,13 @@ public class LocalTokenManager extends TokenManager {
 	public LoginUser validate(String token) {
 		DummyUser dummyUser = tokenMap.get(token);
 		if (dummyUser == null) {
-            return null;
+
+			return null;
 		}
 
-        extendExpiredTime(dummyUser);
+		extendExpiredTime(dummyUser);
 
-        return dummyUser.loginUser;
+		return dummyUser.loginUser;
 	}
 
 	public void remove(String token) {

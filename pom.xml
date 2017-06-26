@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.smart</groupId>
 	<artifactId>smart</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.1</version>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
 	
@@ -17,6 +17,7 @@
 	</modules>
 	
 	<profiles>
+		<!-- 开发环境 -->
 		<profile>
 			<id>dev</id>
 			<properties>
@@ -28,6 +29,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
+		<!-- 生产环境 -->
 		<profile>
 			<id>pro</id>
 			<properties>
@@ -384,6 +386,11 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
@@ -447,31 +454,14 @@
 		</resources>
 	</build>
 	
-	<!-- Jar镜像 -->
+	<!-- 阿里云镜像 -->
 	<repositories>
 		<repository>
-			<id>smart</id>
-			<name>smart</name>
-			<url>http://www.gechuanyi.com:99/repository/maven2/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<id>nexus-aliyun</id>
+			<name>Nexus Aliyun</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
 		</repository>
 	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>smart</id>
-			<name>smart</name>
-			<url>http://www.gechuanyi.com:99/repository/maven2/</url>
-			<layout>default</layout>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
 	
 	<issueManagement>
 		<system>github</system>
