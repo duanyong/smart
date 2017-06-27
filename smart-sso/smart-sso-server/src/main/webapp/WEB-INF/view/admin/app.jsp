@@ -51,7 +51,7 @@
 	$('.page-content-area').ace_ajax('loadScripts', scripts, function() {
 		jQuery(function($) {
 			// 列表
-    		var $table = $("#_table").table({
+			var $table = $("#_table").table({
     			url : "${_path}/admin/app/list",
     			formId : "_form",
 				tools : [
@@ -68,17 +68,6 @@
 						$table.ajaxDelete({
 							confirm : "删除应用会影响关联的管理员、角色、权限，确认要删除?", 
 							url : "${_path}/admin/app/delete"
-						});
-					}},
-					{text : '同步权限', clazz : 'btn-info', icon : 'fa fa-refresh blue', permission : '/admin/app/sync/permissions', handler : function(){
-						$table.ajax({
-							url : "${_path}/admin/app/sync/permissions",
-							data : {codes : $table.getSelectedItemKeys("code")},
-							success : function(d) {
-								if(d){
-									$.gritter.add({text: d.message});
-								}
-					        }
 						});
 					}}
 				],
@@ -121,17 +110,6 @@
 							confirm : "删除应用会影响关联的管理员、角色、权限，确认要删除?", 
 							url : "${_path}/admin/app/delete"
 						});
-					}},
-					{text : '同步权限', clazz : 'blue', icon : 'fa fa-refresh', permission : '/admin/app/sync/permissions', handler : function(d, i){
-						$table.ajax({
-							url : "${_path}/admin/app/sync/permissions",
-							data : {codes : d.code},
-							success : function(d) {
-								if(d){
-									$.gritter.add({text: d.message});
-								}
-					        }
-						});
 					}}
 				],
 				after : function(){
@@ -141,21 +119,21 @@
 			});
 			
 			/**
-    		// 搜索
+			// 搜索
 			$("#_search").click(function () {
-           		$table.search();
-           	});
-           	
-           	// 回车绑定
-			$(".form-data").bind('keypress',function(event){
-                if(event.keyCode == "13"){
-                	event.preventDefault();
-                	$table.search();
-                }
-            });
-			*/
+				$table.search();
+			});
 			
-    		//搜索
+			// 回车绑定
+			$(".form-data").bind('keypress',function(event){
+			    if(event.keyCode == "13"){
+			    	event.preventDefault();
+			    	$table.search();
+			    }
+			});
+			 */
+			
+			// 搜索
 			$(".search-data").keyup(function () { 
 				$table.search();
 			});

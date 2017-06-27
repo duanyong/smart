@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.smart</groupId>
 	<artifactId>smart</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.1.1</version>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
 	
@@ -17,6 +17,7 @@
 	</modules>
 	
 	<profiles>
+		<!-- 开发环境 -->
 		<profile>
 			<id>dev</id>
 			<properties>
@@ -28,6 +29,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
+		<!-- 生产环境 -->
 		<profile>
 			<id>pro</id>
 			<properties>
@@ -384,6 +386,11 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
@@ -447,32 +454,15 @@
 		</resources>
 	</build>
 	
-	<!-- Jar镜像 -->
+	<!-- 阿里云镜像 -->
 	<repositories>
 		<repository>
-			<id>duanyong</id>
-			<name>smart</name>
-			<url>https://raw.githubusercontent.com/duanyong/smart/tree/snapshot/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
+			<id>nexus-aliyun</id>
+			<name>Nexus Aliyun</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
 		</repository>
 	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>duanyong</id>
-			<name>smart</name>
-			<url>https://raw.githubusercontent.com/duanyong/smart/tree/snapshot/</url>
-			<layout>default</layout>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<updatePolicy>daily</updatePolicy>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
-	
+
 	<issueManagement>
 		<system>github</system>
 		<url>https://github.com/duanyong/smart/issues</url>
